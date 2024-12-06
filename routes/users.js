@@ -16,9 +16,15 @@ usersRoute.get('/', (req, res) => {
 })
 
 usersRoute.get('/:id', (req, res) => {
-    const id = req.params.id;
-    let user = usersData[id]
-    res.json(user);
+    const userId = Number(req.params.id);
+    console.log(userId);
+
+    let user = data.find((user) => user.id === userId);
+    if (!user) {
+    res.status(404).json({ error: "user not found" });
+    }
+    res.json(` User ID: ${user.id}, User: ${user.name}, Email: ${user.email}` );
+    console.log(user);
 })
 
 
